@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
-using SalesWebMvc.Data;
+using SalesWebMvc.Models;
 using System;
 using System.Configuration;
 
