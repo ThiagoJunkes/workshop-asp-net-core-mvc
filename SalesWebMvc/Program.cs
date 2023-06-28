@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MySqlConnector;
+using SalesWebMvc.Data;
 using SalesWebMvc.Models;
 using System;
 using System.Configuration;
@@ -15,6 +16,7 @@ options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection), bui
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<SeedingService>();
 
 var app = builder.Build();
 
@@ -26,8 +28,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//builder.Services.AddDbContext<SalesWebMvcContext>(options =>
-//options.UseMySql(builder.Configuration.GetConnectionString("SalesWebMvcContext"), MySqlServerVersion.LatestSupportedServerVersion, builder => builder.MigrationsAssembly("SalesWebMvc")));
 
 
 app.UseHttpsRedirection();
@@ -40,5 +40,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
+
 
 app.Run();
