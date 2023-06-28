@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using MySqlConnector;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
+using SalesWebMvc.Services;
 using System;
 using System.Configuration;
 
@@ -17,6 +18,7 @@ options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection), bui
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
 
